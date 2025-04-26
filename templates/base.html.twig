@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
@@ -12,7 +13,39 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body class="d-flex vh-100">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark sidebar h-100">
+            <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <center><i class="fa-solid fa-code me-2"></i>
+                <span class="fs-4">VIGISOFT</span></center>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto" style="margin-top: 40vh;">
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white" aria-current="page">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Tableau de bord
+                    </a>
+                </li>
+                {# {% if is_granted('ROLE_ADMIN') %} #}
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <i class="fas fa-users"></i>
+                            Utilisateurs
+                        </a>
+                    </li>
+                {# {% endif %} #}
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Déconnexion
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="flex-grow-1 p-4 content">
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>
