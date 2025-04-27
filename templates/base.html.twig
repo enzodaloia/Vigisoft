@@ -14,29 +14,47 @@
         {% endblock %}
     </head>
     <body class="d-flex vh-100">
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark sidebar h-100">
-            <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-primary-color h-100">
+            {# <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <center><i class="fa-solid fa-code me-2"></i>
                 <span class="fs-4">VIGISOFT</span></center>
             </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto" style="margin-top: 40vh;">
-                <li class="nav-item">
-                    <a href="#" class="nav-link text-white" aria-current="page">
+            <hr> #}
+            <ul class="nav nav-pills flex-column mb-auto sidebar" style="margin-top: auto; margin-bottom: auto;">
+                <li class="nav-item mb-3">
+                    <a href="{{path('app_front_index')}}" class="btn bg-secondary-color w-100" aria-current="page">
                         <i class="fas fa-tachometer-alt"></i>
                         Tableau de bord
                     </a>
                 </li>
-                {# {% if is_granted('ROLE_ADMIN') %} #}
-                    <li>
-                        <a href="#" class="nav-link text-white">
+                <li class="nav-item mb-3">
+                    <a href="{{path('app_front_index')}}" class="btn bg-secondary-color w-100" aria-current="page">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Incidents
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a href="{{path('app_front_index')}}" class="btn bg-secondary-color w-100" aria-current="page">
+                        <i class="fas fa-shield-alt"></i>
+                        Veille
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a href="{{path('app_front_index')}}" class="btn bg-secondary-color w-100" aria-current="page">
+                        <i class="fas fa-check-circle"></i>
+                        Bonnes pratiques
+                    </a>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item mb-3">
+                        <a href="{{path('app_back_user_index')}}" class="btn bg-secondary-color w-100">
                             <i class="fas fa-users"></i>
                             Utilisateurs
                         </a>
                     </li>
-                {# {% endif %} #}
-                <li>
-                    <a href="#" class="nav-link text-white">
+                {% endif %}
+                <li class="nav-item mb-3">
+                    <a href="{{path('app_logout')}}" class="btn bg-secondary-color w-100">
                         <i class="fas fa-sign-out-alt"></i>
                         Déconnexion
                     </a>
@@ -44,7 +62,7 @@
             </ul>
         </div>
 
-        <div class="flex-grow-1 p-4 content">
+        <div class="container-fluid p-4">
             {% block body %}{% endblock %}
         </div>
     </body>
