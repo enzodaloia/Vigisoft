@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Severite{% endblock %}
+
+{% block body %}
+    <h1>Edit Severite</h1>
+
+    {{ include('back/severite/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_back_severite_index') }}">back to list</a>
+
+    {{ include('back/severite/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Tickets index{% endblock %}
+
+{% block body %}
+    <div class="d-flex mb-3">
+        <div class="d-flex">
+            <a href="{{ path('app_back_tickets_new') }}" class="btn btn-primary-color me-2"><i class="fa fa-plus"></i></a>
+            <a href="{{ path('app_back_statut_index') }}" class="btn btn-primary-color me-2">Statut</a>
+            <a href="{{ path('app_back_severite_index') }}" class="btn btn-primary-color me-2">Sévérité</a>
+        </div>
+        <div class="ms-auto d-flex">
+            <div class="dropdown me-2">
+                <button class="btn btn-white text-black border border-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Statut
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Tous</a></li>
+                    {% for statut in statuts %}
+                        <li><a class="dropdown-item" href="#">{{statut.titre}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-white text-black border border-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sévérité
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Tous</a></li>
+                    {% for severite in severites %}
+                        <li><a class="dropdown-item" href="#">{{severite.titre}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="rounded-3 p-4 bg-primary-color d-flex flex-column" style="height: 90vh;">
+        <div class="rounded-top bg-secondary-color text-white d-flex justify-content-center">
+            <h1>Incidents</h1>
+        </div>
+        <div class="table-container rounded-bottom p-3 overflow-auto bg-white">
+            <table class="table table-striped table-bordered" id="ticketsTable">
+                <thead>
+                    <tr>
+                        <th class="text-center">Id</th>
+                        <th class="text-center">Titre</th>
+                        <th class="text-center">Description</th>
+                        <th class="text-center">Créé le</th>
+                        <th class="text-center">Mis à jour le</th>
+                        <th class="text-center">Statut</th>
+                        <th class="text-center">Sévérité</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if tickets|length > 0 %}
+                        {% for ticket in tickets %}
+                            <tr>
+                                <td>{{ ticket.id }}</td>
+                                <td>{{ ticket.titre }}</td>
+                                <td>{{ ticket.description }}</td>
+                                <td>{{ ticket.createdAt ? ticket.createdAt|date('d/m/Y') : '' }}</td>
+                                <td>{{ ticket.updatedAt ? ticket.updatedAt|date('d/m/Y') : '' }}</td>
+                                <td>
+                                    <span class="badge 
+                                        {% if ticket.statut.titre == 'Nouveau' %}
+                                            bg-primary
+                                        {% elseif ticket.statut.titre == 'En cours' %}
+                                            bg-warning
+                                        {% elseif ticket.statut.titre == 'Clôturé' %}
+                                            bg-success
+                                        {% else %}
+                                            bg-primary
+                                        {% endif %}">
+                                        {{ ticket.statut.titre }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge 
+                                        {% if ticket.severite.titre == 'Mineur' %}
+                                            bg-info
+                                        {% elseif ticket.severite.titre == 'Majeur' %}
+                                            bg-warning
+                                        {% elseif ticket.severite.titre == 'Critique' %}
+                                            bg-danger
+                                        {% else %}
+                                            bg-primary
+                                        {% endif %}">
+                                        {{ ticket.severite.titre }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="{{ path('app_back_tickets_show', {'id': ticket.id}) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ path('app_back_tickets_edit', {'id': ticket.id}) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {# {% else %}
+                        <tr>
+                            <td class="text-center" colspan="6">Aucun enregistrement trouvé</td>
+                        </tr> #}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('node_modules/datatables.net/js/dataTables.min.js') }}"></script>
+    <script src="{{ asset('node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#ticketsTable').DataTable({
+                pageLength: 50,
+                language: {
+                    url: "{{ asset('json/dataTables_fr.json') }}",
+                },
+            });
+        });
+    </script>
+{% endblock %}

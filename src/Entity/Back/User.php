@@ -3,6 +3,9 @@
 namespace App\Entity\Back;
 
 use App\Repository\Back\UserRepository;
+use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -36,6 +39,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: false)]
     private \DateTimeInterface $createdAt;
+
+    /**
+     * @var Collection<int, Tickets>
+     */
+    #[ORM\OneToMany(targetEntity: Tickets::class, mappedBy: 'createdBy')]
+    private Collection $tickets;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $LastName = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $firstName = null;
+
+    public function __construct()
+    {
+        $this->tickets = new ArrayCollection();
+        $this->createdAt = new DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +140,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tickets>
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Tickets $ticket): static
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets->add($ticket);
+            $ticket->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(Tickets $ticket): static
+    {
+        if ($this->tickets->removeElement($ticket)) {
+            // set the owning side to null (unless already changed)
+            if ($ticket->getCreatedBy() === $this) {
+                $ticket->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->LastName;
+    }
+
+    public function setLastName(?string $LastName): static
+    {
+        $this->LastName = $LastName;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(?string $firstName): static
+    {
+        $this->firstName = $firstName;
 
         return $this;
     }

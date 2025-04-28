@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/back/user')]
 final class UserController extends AbstractController{
-    #[Route(name: 'app_back_user_index', methods: ['GET'])]
+    #[Route('/', name: 'app_back_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('back/user/index.html.twig', [

@@ -11,6 +11,15 @@
 .bg-secondary-color{
     background-color:var(--secondary-color);
 }
+.btn-primary-color{
+    background-color:var(--primary-color);
+    color:white;
+}
+
+.btn-primary-color:hover{
+    background-color:var(--secondary-color);
+    color:black;
+}
 
 .sidebar .btn {
     padding: 10px 20px;

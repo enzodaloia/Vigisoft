@@ -15,6 +15,7 @@
                 <thead>
                     <tr>
                         <th class="text-center">Id</th>
+                        <th class="text-center">Utilisateur</th>
                         <th class="text-center">Email</th>
                         <th class="text-center">Roles</th>
                         <th class="text-center">Crée le</th>
@@ -22,30 +23,33 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for user in users %}
-                    <tr>
-                        <td>{{ user.id }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>
-                            {% if 'ROLE_ADMIN' in user.roles %}
-                                Administrateur
-                            {% elseif 'ROLE_USER' in user.roles %}
-                                Utilisateur
-                            {% else %}
-                                {{ user.roles ? user.roles|json_encode : '' }}
-                            {% endif %}
-                        </td>
-                        <td>{{ user.createdAt|date('d/m/Y') }}</td>
-                        <td>
-                            <a href="{{ path('app_back_user_show', {'id': user.id}) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                            <a href="{{ path('app_back_user_edit', {'id': user.id}) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                        </td>
-                    </tr>
+                {% if users|length > 0 %}
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.lastName }} {{ user.firstName }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                {% if 'ROLE_ADMIN' in user.roles %}
+                                    Administrateur
+                                {% elseif 'ROLE_USER' in user.roles %}
+                                    Utilisateur
+                                {% else %}
+                                    {{ user.roles ? user.roles|json_encode : '' }}
+                                {% endif %}
+                            </td>
+                            <td>{{ user.createdAt|date('d/m/Y') }}</td>
+                            <td>
+                                <a href="{{ path('app_back_user_show', {'id': user.id}) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                <a href="{{ path('app_back_user_edit', {'id': user.id}) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
                 {% else %}
                     <tr>
-                        <td colspan="5">no records found</td>
+                        <td colspan="5">Aucun enregistrement trouvé</td>
                     </tr>
-                {% endfor %}
+                {% endif %}
                 </tbody>
             </table>
         </div>
@@ -61,7 +65,7 @@
             $('#userTable').DataTable({
                 pageLength: 50,
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json' // Traduction en français
+                    url: "{{ asset('json/dataTables_fr.json') }}",
                 },
             });
         });

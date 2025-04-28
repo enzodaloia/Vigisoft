@@ -13,8 +13,8 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body class="d-flex vh-100">
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-primary-color h-100">
+    <body class="d-flex">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-primary-color vh-100">
             {# <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <center><i class="fa-solid fa-code me-2"></i>
                 <span class="fs-4">VIGISOFT</span></center>
@@ -28,7 +28,7 @@
                     </a>
                 </li>
                 <li class="nav-item mb-3">
-                    <a href="{{path('app_front_index')}}" class="btn bg-secondary-color w-100" aria-current="page">
+                    <a href="{{path('app_back_tickets_index')}}" class="btn bg-secondary-color w-100" aria-current="page">
                         <i class="fas fa-exclamation-triangle"></i>
                         Incidents
                     </a>
