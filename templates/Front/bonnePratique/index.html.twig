@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vigisoft{% endblock %}
+
+{% block body %}
+
+{% for bp in bonnePratique %}
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5>{{ bp.titre }}</h5>
+        </div>
+        <div class="card-body">
+            <p>{{ bp.description }}</p>
+            <a href="{{ path('app_front_bonne_pratique_show', {'id': bp.id}) }}" class="btn btn-primary">Voir plus</a>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

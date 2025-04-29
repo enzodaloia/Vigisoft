@@ -52,10 +52,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstName = null;
 
+    /**
+     * @var Collection<int, Contribution>
+     */
+    #[ORM\OneToMany(targetEntity: Contribution::class, mappedBy: 'createdBy')]
+    private Collection $contributions;
+
     public function __construct()
     {
         $this->tickets = new ArrayCollection();
         $this->createdAt = new DateTime();
+        $this->contributions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -194,6 +201,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstName(?string $firstName): static
     {
         $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contribution>
+     */
+    public function getContributions(): Collection
+    {
+        return $this->contributions;
+    }
+
+    public function addContribution(Contribution $contribution): static
+    {
+        if (!$this->contributions->contains($contribution)) {
+            $this->contributions->add($contribution);
+            $contribution->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContribution(Contribution $contribution): static
+    {
+        if ($this->contributions->removeElement($contribution)) {
+            // set the owning side to null (unless already changed)
+            if ($contribution->getCreatedBy() === $this) {
+                $contribution->setCreatedBy(null);
+            }
+        }
 
         return $this;
     }

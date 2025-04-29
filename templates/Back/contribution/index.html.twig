@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Contributions{% endblock %}
+
+{% block body %}
+    <div class="d-flex mb-3">
+        <div class="d-flex">
+            <a href="{{ path('app_back_contribution_new') }}" class="btn btn-primary-color me-2"><i class="fa fa-plus"></i></a>
+        </div>
+    </div>
+    <div class="rounded-3 p-4 bg-primary-color d-flex flex-column" style="height: 90vh;">
+        <div class="rounded-top bg-secondary-color text-white d-flex justify-content-center">
+            <h1>Contributions</h1>
+        </div>
+        <div class="table-container rounded-bottom p-3 overflow-auto bg-white">
+            <table class="table table-striped table-bordered" id="contributionsTable">
+                <thead>
+                    <tr>
+                        <th class="text-center">Id</th>
+                        <th class="text-center">Token</th>
+                        <th class="text-center">Titre</th>
+                        <th class="text-center">Fichier</th>
+                        <th class="text-center">Créé le</th>
+                        <th class="text-center">Corps HTML</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if contributions|length > 0 %}
+                        {% for contribution in contributions %}
+                            <tr>
+                                <td class="text-center">{{ contribution.id }}</td>
+                                <td class="text-center">{{ contribution.token }}</td>
+                                <td class="text-center">{{ contribution.titre }}</td>
+                                <td class="text-center">{{ contribution.file }}</td>
+                                <td class="text-center">{{ contribution.createdAt ? contribution.createdAt|date('d/m/Y H:i') : '' }}</td>
+                                <td class="text-center">{{ contribution.corpshtml }}</td>
+                                <td class="text-center">
+                                    <a href="{{ path('app_back_contribution_show', {'id': contribution.id}) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ path('app_back_contribution_edit', {'id': contribution.id}) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('node_modules/datatables.net/js/dataTables.min.js') }}"></script>
+    <script src="{{ asset('node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#contributionsTable').DataTable({
+                pageLength: 50,
+                language: {
+                    url: "{{ asset('json/dataTables_fr.json') }}",
+                },
+            });
+        });
+    </script>
+{% endblock %}
