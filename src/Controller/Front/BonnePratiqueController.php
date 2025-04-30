@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class BonnePratiqueController extends AbstractController{
-    #[Route('/Bonne-pratique', name: 'app_front_bonne_pratique')]
+    #[Route('/Front/Bonne-pratique', name: 'app_front_bonne_pratique')]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $bp = $entityManager->getRepository(Contribution::class)->findAll();

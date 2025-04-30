@@ -3,6 +3,7 @@
 namespace App\Entity\Back;
 
 use App\Repository\Back\ContributionRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,6 +33,12 @@ class Contribution
     #[ORM\ManyToOne(inversedBy: 'contributions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $createdBy = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new DateTime();
+        $this->token = bin2hex(random_bytes(16));
+    }
 
     public function getId(): ?int
     {

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/back/contribution')]
+#[Route('/admin/back/contribution')]
 final class ContributionController extends AbstractController{
     #[Route(name: 'app_back_contribution_index', methods: ['GET'])]
     public function index(ContributionRepository $contributionRepository): Response
@@ -29,6 +29,18 @@ final class ContributionController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('file')->getData();
+            if ($file) {
+                $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/resources/imgContribution';
+                $newFilename = $contribution->getToken() . '.' . $file->guessExtension();
+
+                try {
+                    $file->move($uploadsDirectory, $newFilename);
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'An error occurred while uploading the file.');
+                }
+            }
+            $contribution->setCreatedBy($this->getUser());
             $entityManager->persist($contribution);
             $entityManager->flush();
 
@@ -56,6 +68,17 @@ final class ContributionController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('file')->getData();
+            if ($file) {
+                $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/resources/imgContribution';
+                $newFilename = $contribution->getToken() . '.' . $file->guessExtension();
+
+                try {
+                    $file->move($uploadsDirectory, $newFilename);
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'An error occurred while uploading the file.');
+                }
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('app_back_contribution_index', [], Response::HTTP_SEE_OTHER);

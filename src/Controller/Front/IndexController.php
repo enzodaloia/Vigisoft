@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class IndexController extends AbstractController{
-    #[Route('/Dashboard', name: 'app_front_index')]
+    #[Route('/Front/Dashboard', name: 'app_front_index')]
     public function index(): Response
     {
         return $this->render('front/index/index.html.twig', [

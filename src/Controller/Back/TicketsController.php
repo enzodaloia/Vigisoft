@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/back/tickets')]
+#[Route('/admin/back/tickets')]
 final class TicketsController extends AbstractController{
     #[Route(name: 'app_back_tickets_index', methods: ['GET'])]
     public function index(TicketsRepository $ticketsRepository, StatutRepository $statutRepository, SeveriteRepository $severiteRepository): Response

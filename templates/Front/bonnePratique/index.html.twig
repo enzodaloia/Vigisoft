@@ -3,19 +3,21 @@
 {% block title %}Vigisoft{% endblock %}
 
 {% block body %}
-
-{% for bp in bonnePratique %}
-    <div class="card mb-3">
-        <div class="card-header">
-            <h5>{{ bp.titre }}</h5>
-        </div>
-        <div class="card-body">
-            <p>{{ bp.description }}</p>
-            <a href="{{ path('app_front_bonne_pratique_show', {'id': bp.id}) }}" class="btn btn-primary">Voir plus</a>
-        </div>
+<div class="row">
+    <div class="col-md-12 mb-3">
+        {% for bp in bonnePratique %}
+            <div class="card col-md-3">
+                <div class="card-header">
+                    <img src="{{ asset('ressources/imgContribution/' ~ bp.token) }}" alt="Image de la bonne pratique" class="img-fluid">
+                </div>
+                <div class="card-body">
+                    <h5>{{ bp.titre }}</h5>
+                    <a href="#" class="btn btn-primary">Voir plus</a>
+                </div>
+            </div>
+        {% endfor %}
     </div>
-{% endfor %}
-
+</div>
 {% endblock %}
 
 {% block javascripts %}

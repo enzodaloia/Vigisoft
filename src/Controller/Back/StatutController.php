@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/back/statut')]
+#[Route('/admin/back/statut')]
 final class StatutController extends AbstractController{
     #[Route(name: 'app_back_statut_index', methods: ['GET'])]
     public function index(StatutRepository $statutRepository): Response
