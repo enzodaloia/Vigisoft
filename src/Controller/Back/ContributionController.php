@@ -16,7 +16,7 @@ final class ContributionController extends AbstractController{
     #[Route(name: 'app_back_contribution_index', methods: ['GET'])]
     public function index(ContributionRepository $contributionRepository): Response
     {
-        return $this->render('back/contribution/index.html.twig', [
+        return $this->render('Back/contribution/index.html.twig', [
             'contributions' => $contributionRepository->findAll(),
         ]);
     }
@@ -47,7 +47,7 @@ final class ContributionController extends AbstractController{
             return $this->redirectToRoute('app_back_contribution_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('back/contribution/new.html.twig', [
+        return $this->render('Back/contribution/new.html.twig', [
             'contribution' => $contribution,
             'form' => $form,
         ]);
@@ -56,7 +56,7 @@ final class ContributionController extends AbstractController{
     #[Route('/{id}', name: 'app_back_contribution_show', methods: ['GET'])]
     public function show(Contribution $contribution): Response
     {
-        return $this->render('back/contribution/show.html.twig', [
+        return $this->render('Back/contribution/show.html.twig', [
             'contribution' => $contribution,
         ]);
     }
@@ -84,7 +84,7 @@ final class ContributionController extends AbstractController{
             return $this->redirectToRoute('app_back_contribution_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('back/contribution/edit.html.twig', [
+        return $this->render('Back/contribution/edit.html.twig', [
             'contribution' => $contribution,
             'form' => $form,
         ]);

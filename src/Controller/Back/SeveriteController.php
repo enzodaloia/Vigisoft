@@ -16,7 +16,7 @@ final class SeveriteController extends AbstractController{
     #[Route(name: 'app_back_severite_index', methods: ['GET'])]
     public function index(SeveriteRepository $severiteRepository): Response
     {
-        return $this->render('back/severite/index.html.twig', [
+        return $this->render('Back/severite/index.html.twig', [
             'severites' => $severiteRepository->findAll(),
         ]);
     }
@@ -35,7 +35,7 @@ final class SeveriteController extends AbstractController{
             return $this->redirectToRoute('app_back_severite_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('back/severite/new.html.twig', [
+        return $this->render('Back/severite/new.html.twig', [
             'severite' => $severite,
             'form' => $form,
         ]);
@@ -44,7 +44,7 @@ final class SeveriteController extends AbstractController{
     #[Route('/{id}', name: 'app_back_severite_show', methods: ['GET'])]
     public function show(Severite $severite): Response
     {
-        return $this->render('back/severite/show.html.twig', [
+        return $this->render('Back/severite/show.html.twig', [
             'severite' => $severite,
         ]);
     }
@@ -61,7 +61,7 @@ final class SeveriteController extends AbstractController{
             return $this->redirectToRoute('app_back_severite_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('back/severite/edit.html.twig', [
+        return $this->render('Back/severite/edit.html.twig', [
             'severite' => $severite,
             'form' => $form,
         ]);

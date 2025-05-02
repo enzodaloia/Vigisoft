@@ -16,7 +16,7 @@ final class StatutController extends AbstractController{
     #[Route(name: 'app_back_statut_index', methods: ['GET'])]
     public function index(StatutRepository $statutRepository): Response
     {
-        return $this->render('back/statut/index.html.twig', [
+        return $this->render('Back/statut/index.html.twig', [
             'statuts' => $statutRepository->findAll(),
         ]);
     }
@@ -35,7 +35,7 @@ final class StatutController extends AbstractController{
             return $this->redirectToRoute('app_back_statut_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('back/statut/new.html.twig', [
+        return $this->render('Back/statut/new.html.twig', [
             'statut' => $statut,
             'form' => $form,
         ]);
@@ -44,7 +44,7 @@ final class StatutController extends AbstractController{
     #[Route('/{id}', name: 'app_back_statut_show', methods: ['GET'])]
     public function show(Statut $statut): Response
     {
-        return $this->render('back/statut/show.html.twig', [
+        return $this->render('Back/statut/show.html.twig', [
             'statut' => $statut,
         ]);
     }
@@ -61,7 +61,7 @@ final class StatutController extends AbstractController{
             return $this->redirectToRoute('app_back_statut_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('back/statut/edit.html.twig', [
+        return $this->render('Back/statut/edit.html.twig', [
             'statut' => $statut,
             'form' => $form,
         ]);

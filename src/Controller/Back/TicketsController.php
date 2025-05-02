@@ -18,7 +18,7 @@ final class TicketsController extends AbstractController{
     #[Route(name: 'app_back_tickets_index', methods: ['GET'])]
     public function index(TicketsRepository $ticketsRepository, StatutRepository $statutRepository, SeveriteRepository $severiteRepository): Response
     {
-        return $this->render('back/tickets/index.html.twig', [
+        return $this->render('Back/tickets/index.html.twig', [
             'tickets' => $ticketsRepository->findAll(),
             'statuts' => $statutRepository->findAll(),
             'severites' => $severiteRepository->findAll(),
@@ -39,7 +39,7 @@ final class TicketsController extends AbstractController{
             return $this->redirectToRoute('app_back_tickets_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('back/tickets/new.html.twig', [
+        return $this->render('Back/tickets/new.html.twig', [
             'ticket' => $ticket,
             'form' => $form,
         ]);
@@ -48,7 +48,7 @@ final class TicketsController extends AbstractController{
     #[Route('/{id}', name: 'app_back_tickets_show', methods: ['GET'])]
     public function show(Tickets $ticket): Response
     {
-        return $this->render('back/tickets/show.html.twig', [
+        return $this->render('Back/tickets/show.html.twig', [
             'ticket' => $ticket,
         ]);
     }
@@ -65,7 +65,7 @@ final class TicketsController extends AbstractController{
             return $this->redirectToRoute('app_back_tickets_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('back/tickets/edit.html.twig', [
+        return $this->render('Back/tickets/edit.html.twig', [
             'ticket' => $ticket,
             'form' => $form,
         ]);
