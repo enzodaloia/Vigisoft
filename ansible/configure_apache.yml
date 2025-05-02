@@ -1,0 +1,38 @@
+---
+- name: Configure Apache for Vigisoft project
+  hosts: all
+  become: yes
+  tasks:
+    - name: Copy apache.conf from Symfony project to Apache config directory
+      copy:
+        src: /var/www/html/Vigisoft/apache.conf
+        dest: /etc/apache2/sites-available/vigisoft.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Enable the Vigisoft site configuration
+      command: a2ensite vigisoft.conf
+      notify:
+        - Reload Apache
+
+    - name: Ensure Apache rewrite module is enabled
+      command: a2enmod rewrite
+      notify:
+        - Reload Apache
+
+    - name: Disable the default site configuration
+      command: a2dissite 000-default.conf
+      notify:
+        - Reload Apache
+
+    - name: Reload Apache service to apply changes
+      systemd:
+        name: apache2
+        state: reloaded
+
+  handlers:
+    - name: Reload Apache
+      systemd:
+        name: apache2
+        state: reloaded

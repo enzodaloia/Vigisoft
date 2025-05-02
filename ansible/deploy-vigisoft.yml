@@ -1,0 +1,107 @@
+---
+- name: Déploiement Symfony via Docker en production
+  hosts: all
+  become: yes
+  vars:
+    mysql_root_password: "rootpassword"
+    mysql_user: "vigisoft"
+    mysql_password: "ZjN4xfKjSkZmBHF"
+    mysql_database: "vigisoft"
+    app_secret: "e3806a7eaf99e088b7ec0620143e5a1c"
+    symfony_project_dir: "/var/www/html/Vigisoft"
+    mysql_host: "www.enzo.lowhost.fr"
+    mysql_port: "3306"
+
+  tasks:
+    # Vérifier si Docker est installé
+    - name: Vérifie que Docker est installé
+      command: docker --version
+      register: docker_version
+      failed_when: false
+      changed_when: false
+
+    - name: Installer Docker si non installé
+      apt:
+        name: docker.io
+        state: present
+      when: docker_version.rc != 0
+
+    # Vérifier si Docker Compose est installé
+    - name: Vérifie que Docker Compose est installé
+      command: docker-compose --version
+      register: docker_compose_version
+      failed_when: false
+      changed_when: false
+
+    - name: Installer Docker Compose si non installé
+      apt:
+        name: docker-compose
+        state: present
+      when: docker_compose_version.rc != 0
+
+    # Créer le répertoire pour le projet Symfony s'il n'existe pas
+    - name: Crée le répertoire pour le projet Symfony si non existant
+      file:
+        path: "{{ symfony_project_dir }}"
+        state: directory
+        owner: root
+        group: root
+
+    # Vérifier l'accessibilité du dépôt GitHub
+    - name: Vérifie l'accessibilité du dépôt GitHub
+      uri:
+        url: "https://github.com/enzodaloia/Vigisoft.git"
+        method: HEAD
+      register: git_access
+      failed_when: false
+      changed_when: false
+
+    - name: Affiche le résultat de la vérification du dépôt
+      debug:
+        msg: "Accès au dépôt réussi, statut HTTP : {{ git_access.status }}"
+      when: git_access is defined and git_access.status is defined
+
+    - name: Affiche un message d'erreur si le dépôt est inaccessible
+      debug:
+        msg: "Le dépôt est inaccessible"
+      when: git_access is not defined or git_access.status != 200
+
+    # Cloner ou mettre à jour le dépôt Git du projet Symfony
+    - name: Clone ou met à jour le dépôt Git du projet Symfony
+      git:
+        repo: "https://github.com/enzodaloia/Vigisoft.git"
+        dest: "{{ symfony_project_dir }}"
+        version: main
+        force: yes
+        update: yes
+
+    # Crée ou modifie le fichier .env.local pour la production
+    - name: Crée ou modifie le fichier .env.local pour la production
+      copy:
+        dest: "{{ symfony_project_dir }}/.env.local"
+        content: |
+          APP_ENV=prod
+          APP_SECRET={{ app_secret }}
+          DATABASE_URL=mysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}:{{ mysql_port }}/{{ mysql_database }}
+          MAILER_DSN=smtp://localhost
+    # Démarrer les services Docker en mode production
+    - name: Démarrer les services Docker avec compose en mode production
+      command: docker-compose -f {{ symfony_project_dir }}/compose.yaml up -d
+      args:
+        chdir: "{{ symfony_project_dir }}"
+      environment:
+        APP_ENV: prod
+        MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
+
+    # Vérifier si les conteneurs Docker sont en cours d'exécution
+    - name: Vérifie si les conteneurs Docker sont en cours d'exécution
+      docker_container:
+        name: symfony_app
+        state: started
+      register: symfony_container_status
+      failed_when: false
+      changed_when: false
+
+    - name: Afficher l'état des conteneurs
+      debug:
+        msg: "{{ symfony_container_status }}"
