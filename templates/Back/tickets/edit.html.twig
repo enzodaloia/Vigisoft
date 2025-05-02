@@ -1,13 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Tickets{% endblock %}
+{% block title %}Modifier le ticket{% endblock %}
 
 {% block body %}
-    <h1>Edit Tickets</h1>
+    <div class="container">
+        <a href="{{ path('app_back_tickets_index') }}" class="btn btn-secondary mb-3">
+            <i class="fa fa-arrow-left"></i>
+        </a>
 
-    {{ include('back/tickets/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0 text-center">Modifier le ticket</h5>
+            </div>
+            <div class="card-body">
+                {{ include('back/tickets/_form.html.twig', { 'button_label': 'Mettre à jour' }) }}
 
-    <a href="{{ path('app_back_tickets_index') }}">back to list</a>
+                <hr>
 
-    {{ include('back/tickets/_delete_form.html.twig') }}
+                {{ include('back/tickets/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
