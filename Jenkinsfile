@@ -5,14 +5,14 @@ pipeline {
         SYMFONY_ENV = 'prod'
     }
 
-    stage('Deploy with Ansible') {
-        steps {
-            sh 'ansible-playbook -i ansible/inventory.ini ansible/deploy_symfony.yml'
-        }
-    }
-
     stages {
-        stage('Install dependencies') {
+        stage('Deploy code with Ansible') {
+            steps {
+                sh 'ansible-playbook -i ansible/inventory.ini ansible/deploy_symfony.yml'
+            }
+        }
+
+        stage('Install PHP dependencies') {
             steps {
                 sh 'composer install --no-dev --optimize-autoloader --no-interaction'
             }
@@ -33,7 +33,7 @@ pipeline {
             }
         }
 
-        stage('Deploy with Ansible') {
+        stage('Configure Apache with Ansible') {
             steps {
                 sh 'ansible-playbook -i ansible/inventory.ini ansible/configure_apache.yml'
             }
