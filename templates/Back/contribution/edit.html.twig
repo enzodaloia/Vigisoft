@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Edit Contribution</h1>
 
-    {{ include('back/contribution/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('Back/contribution/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('app_back_contribution_index') }}">back to list</a>
 
-    {{ include('back/contribution/_delete_form.html.twig') }}
+    {{ include('Back/contribution/_delete_form.html.twig') }}
 {% endblock %}
