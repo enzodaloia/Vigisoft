@@ -1,3 +1,73 @@
-body {
-    background-color: skyblue;
+:root{
+    --primary-color:#011638;
+    --secondary-color:#848FA5;
+    --third-color:#E5DCC5;
+}
+
+.bg-primary-color{
+    background-color:var(--primary-color);
+}
+
+.bg-secondary-color{
+    background-color:var(--secondary-color);
+}
+
+.btn-primary-color{
+    background-color:var(--primary-color);
+    color:white;
+}
+
+.btn-primary-color:hover{
+    background-color:var(--secondary-color);
+    color:black;
+}
+
+.sidebar .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar .btn:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--primary-color);
+    color: white;
+    border: 1px solid var(--secondary-color);
+}
+
+.table thead {
+    background-color: var(--secondary-color);
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: var(--primary-color);
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: var(--third-color);
+}
+
+.table tbody tr:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.table td, .table th {
+    padding: 12px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid var(--secondary-color);
 }

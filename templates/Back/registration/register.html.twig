@@ -1,0 +1,52 @@
+{% block stylesheets %}
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
+    <link href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}">
+{% endblock %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<div class="loginBox">
+    <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
+    <h3>Inscrivez-vous ici</h3>
+    <form method="post">
+        {{ form_start(registrationForm) }}
+        
+        <div class="inputBox">
+            {{ form_widget(registrationForm.firstName, {
+                'attr': {'placeholder': 'Prénom'}
+            }) }}
+            {{ form_widget(registrationForm.lastName, {
+                'attr': {'placeholder': 'Nom'}
+            }) }}
+            {{ form_widget(registrationForm.email, {
+                'attr': {'placeholder': 'Email', 'type': 'email'}
+            }) }}
+            {{ form_widget(registrationForm.plainPassword, {
+                'label': 'Mot de passe',
+                'attr': {'placeholder': 'Mot de passe'}
+            }) }}
+        </div>
+        
+        <div class="form-check" style="display: flex; align-items: center; gap: 10px; margin-bottom: 5%;">
+            {{ form_widget(registrationForm.agreeTerms, {
+                'attr': {'class': 'custom-checkbox'}
+            }) }}
+            <label class="form-check-label" for="{{ registrationForm.agreeTerms.vars.id }}" style="margin: 0; color: #fff;">
+                J'accepte les termes et conditions
+            </label>
+        </div>
+        
+        <input type="submit" value="S'inscrire" class="btn btn-primary w-100">
+        {{ form_end(registrationForm) }}
+    </form>
+    <div class="text-center mt-3">
+        <a href="{{ path('app_login') }}">Déjà un compte ? Connectez-vous</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+{% endblock %}

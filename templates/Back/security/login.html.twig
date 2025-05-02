@@ -1,0 +1,37 @@
+{% block stylesheets %}
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<div class="loginBox">
+    <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
+    <h3>Connectez-vous ici</h3>
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div style="margin-bottom: 10px; color: white; text-align: center;">
+                Connecté en tant que {{ app.user.lastName }} {{ app.user.firstName }}
+            </div>
+            <div style="margin-bottom: 15px;">
+                <a href="{{ path('app_front_index') }}" style="margin-bottom: 5px;">Accueil</a>
+                <a href="{{ path('app_logout') }}">Déconnexion</a>
+            </div>
+        {% endif %}
+
+        <div class="inputBox">
+            <input id="inputEmail" type="text" name="email" value="{{ last_username }}" placeholder="Email" required autofocus>
+            <input id="inputPassword" type="password" name="password" placeholder="Mot de passe" required>
+        </div>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <input type="submit" value="Connexion">
+    </form>
+    <div class="text-center">
+        <a href="{{path("app_register")}}" class="register-link">Créer un compte</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,189 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url(https://i.ibb.co/VQmtgjh/6845078.png) no-repeat;
+    height: 100vh;
+    font-family: sans-serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        background-size: cover;
+        background-attachment: fixed;
+    }
+}
+
+#particles-js {
+    height: 100%;
+}
+
+.loginBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    min-height: 200px;
+    background: #011638;
+    border-radius: 10px;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.user {
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 20px;
+}
+
+h3 {
+    margin: 0;
+    padding: 0 0 20px;
+    color: #848FA5;
+    text-align: center;
+}
+
+.loginBox input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.loginBox input[type="text"],
+.loginBox input[type="password"] {
+    border: none;
+    border-bottom: 2px solid #262626;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    background: transparent;
+    font-size: 16px;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+.loginBox input[type="text"]:hover,
+.loginBox input[type="password"]:hover {
+    color: #E5DCC5;
+    border: 1px solid #E5DCC5;
+    box-shadow: 0 0 5px rgba(0, 255, 0, .3), 
+                0 0 10px rgba(0, 255, 0, .2), 
+                0 0 15px rgba(0, 255, 0, .1), 
+                0 2px 0 black;
+}
+
+.loginBox input[type="text"]:focus,
+.loginBox input[type="password"]:focus {
+    border-bottom: 2px solid #E5DCC5;
+}
+
+.inputBox {
+    position: relative;
+}
+
+.inputBox span {
+    position: absolute;
+    top: 10px;
+    color: #644536;
+}
+
+.loginBox input[type="submit"] {
+    border: none;
+    outline: none;
+    height: 40px;
+    font-size: 16px;
+    background: #848FA5;
+    color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.loginBox input[type="submit"]:hover {
+    border: none;
+    outline: none;
+    height: 40px;
+    font-size: 16px;
+    background: #E5DCC5;
+    color: #000000;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.loginBox input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #848FA5;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.3s ease;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+.loginBox input[type="checkbox"]:checked {
+    background: #848FA5;
+    border-color: #E5DCC5;
+    box-shadow: 0 0 5px rgba(66, 243, 250, 0.5), 
+                0 0 10px rgba(66, 243, 250, 0.3);
+}
+
+.loginBox input[type="checkbox"]:checked::after {
+    content: "✔";
+    color: #fff;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+}
+
+.loginBox input[type="checkbox"]:hover {
+    border-color: #E5DCC5;
+    box-shadow: 0 0 5px rgba(66, 243, 250, 0.5);
+}
+
+.form-check-label {
+    color: #fff;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+.form-check-label .terms-link:hover {
+    color: #848FA5;
+}
+
+.form-check-label a {
+    color: #E5DCC5;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.form-check-label a:hover {
+    color: #848FA5;
+}
+
+.loginBox a {
+    color: #848FA5;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+}
+
+a:hover {
+    color: #E5DCC5;
+}
+
+p {
+    color: #0000ff;
+}
