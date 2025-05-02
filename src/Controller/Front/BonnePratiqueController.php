@@ -28,7 +28,7 @@ final class BonnePratiqueController extends AbstractController
             9 // Limite par page
         );
 
-        return $this->render('front/bonnePratique/index.html.twig', [
+        return $this->render('Front/bonnePratique/index.html.twig', [
             'pagination' => $pagination,
         ]);
     }
