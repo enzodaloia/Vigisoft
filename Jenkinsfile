@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Deploy code with Ansible') {
             steps {
-                sh 'ansible-playbook -i ansible/inventory.ini ansible/deploy_symfony.yml'
+                sh 'ansible-playbook -i ansible/inventory.ini ansible/deploy-vigisoft.yml'
             }
         }
 
