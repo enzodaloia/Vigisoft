@@ -11,6 +11,7 @@
 .bg-secondary-color{
     background-color:var(--secondary-color);
 }
+
 .btn-primary-color{
     background-color:var(--primary-color);
     color:white;

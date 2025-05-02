@@ -26,7 +26,8 @@ class Tickets
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]
-    private ?User $createdBy = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private User $createdBy;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
@@ -39,6 +40,7 @@ class Tickets
     private ?Statut $statut = null;
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Severite $severite = null;
 
     public function __construct()
@@ -93,14 +95,14 @@ class Tickets
         return $this->createdBy;
     }
 
-    public function setCreatedBy(?User $createdBy): static
+    public function setCreatedBy(User $createdBy): static
     {
         $this->createdBy = $createdBy;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
