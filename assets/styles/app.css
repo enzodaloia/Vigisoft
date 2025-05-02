@@ -1,25 +1,25 @@
-:root{
-    --primary-color:#011638;
-    --secondary-color:#848FA5;
-    --third-color:#E5DCC5;
+:root {
+    --primary-color: #011638;
+    --secondary-color: #848FA5;
+    --third-color: #E5DCC5;
 }
 
-.bg-primary-color{
-    background-color:var(--primary-color);
+.bg-primary-color {
+    background-color: var(--primary-color);
 }
 
-.bg-secondary-color{
-    background-color:var(--secondary-color);
+.bg-secondary-color {
+    background-color: var(--secondary-color);
 }
 
-.btn-primary-color{
-    background-color:var(--primary-color);
-    color:white;
+.btn-primary-color {
+    background-color: var(--primary-color);
+    color: white;
 }
 
-.btn-primary-color:hover{
-    background-color:var(--secondary-color);
-    color:black;
+.btn-primary-color:hover {
+    background-color: var(--secondary-color);
+    color: black;
 }
 
 .sidebar .btn {
@@ -70,4 +70,38 @@
     text-align: center;
     vertical-align: middle;
     border: 1px solid var(--secondary-color);
+}
+
+/* === AJOUT pour cartes Bootstrap === */
+.bonne-pratique-cards .card {
+    background-color: var(--third-color);
+    color: black;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bonne-pratique-cards .card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.bonne-pratique-cards .card-title {
+    color: black;
+}
+
+.bonne-pratique-cards .card-header img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Boutons Bootstrap avec thème */
+.btn-primary {
+    background-color: var(--secondary-color);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
 }

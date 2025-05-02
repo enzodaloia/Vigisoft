@@ -3,8 +3,6 @@
 namespace App\Form\Back;
 
 use App\Entity\Back\Contribution;
-use App\Entity\Back\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -19,16 +17,27 @@ class ContributionType extends AbstractType
         $builder
             ->add('titre', TextType::class, [
                 'label' => 'Titre de la bonne pratique',
+                'attr' => [
+                    'placeholder' => 'Ex: Sauvegarde régulière des données',
+                    'class' => 'form-control mb-3',
+                ],
             ])
-            ->add('corpshtml', TextareaType::class,[
+            ->add('corpshtml', TextareaType::class, [
                 'label' => 'Corps de la bonne pratique',
+                'attr' => [
+                    'placeholder' => 'Décrivez la bonne pratique...',
+                    'class' => 'form-control mb-3',
+                    'rows' => 6
+                ],
             ])
             ->add('file', FileType::class, [
                 'label' => 'Fichier',
                 'mapped' => false,
                 'required' => false,
-            ])
-        ;
+                'attr' => [
+                    'class' => 'form-control mb-3',
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
