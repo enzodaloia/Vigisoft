@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         SYMFONY_ENV = 'prod'
+        SSH_KEY = credentials('vigisoft-prod-ssh-key')
     }
 
     stages {
