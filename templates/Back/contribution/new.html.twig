@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Contribution{% endblock %}
+{% block title %}Nouvelle Contribution{% endblock %}
 
 {% block body %}
-    <h1>Create new Contribution</h1>
-
-    {{ include('back/contribution/_form.html.twig') }}
-
-    <a href="{{ path('app_back_contribution_index') }}">back to list</a>
+    <div class="container">
+        <a href="{{ path('app_back_contribution_index') }}" class="btn btn-secondary mb-3">
+            <i class="fa fa-arrow-left"></i>
+        </a>
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0 text-center">Créer une nouvelle contribution</h5>
+            </div>
+            <div class="card-body">
+                {{ include('back/contribution/_form.html.twig', { 'button_label': 'Créer' }) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

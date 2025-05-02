@@ -1,25 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vigisoft{% endblock %}
+{% block title %}Bonnes Pratiques - Vigisoft{% endblock %}
 
 {% block body %}
-<div class="row">
-    <div class="col-md-12 mb-3">
-        {% for bp in bonnePratique %}
-            <div class="card col-md-3">
-                <div class="card-header">
-                    <img src="{{ asset('ressources/imgContribution/' ~ bp.token) }}" alt="Image de la bonne pratique" class="img-fluid">
-                </div>
-                <div class="card-body">
-                    <h5>{{ bp.titre }}</h5>
-                    <a href="#" class="btn btn-primary">Voir plus</a>
-                </div>
+    <div class="rounded-3 p-4 bg-primary-color" style="min-height: 95vh;">
+        <div class="container">
+            <div class="row justify-content-center gx-4 gy-4 bonne-pratique-cards">
+                {% for bp in pagination %}
+                    <div class="col-12 col-md-4">
+                        <div class="card h-100 w-100">
+                            <div class="card-header p-0 border-0">
+                                <img src="{{ asset('ressources/imgContribution/' ~ bp.token) }}" alt="Image de la bonne pratique" class="img-fluid rounded-top">
+                            </div>
+                            <div class="card-body text-center d-flex flex-column justify-content-between">
+                                <h5 class="card-title">{{ bp.titre }}</h5>
+                                <a href="#" class="btn btn-primary mt-3 w-100">Voir plus</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+
+            <div class="d-flex justify-content-center mt-4">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
     </div>
-</div>
-{% endblock %}
-
-{% block javascripts %}
-
 {% endblock %}

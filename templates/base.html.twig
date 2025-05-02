@@ -13,7 +13,7 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body class="d-flex">
+    <body class="d-flex" style="height: 100vh; overflow: hidden;">
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-primary-color vh-100">
             {# <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <center><i class="fa-solid fa-code me-2"></i>
@@ -62,8 +62,10 @@
             </ul>
         </div>
 
-        <div class="container-fluid p-4">
-            {% block body %}{% endblock %}
+        <div class="ms-auto" style="margin-left: 250px; width: calc(100% - 250px); overflow-y: auto; height: 100vh;">
+            <div class="container-fluid p-4">
+                {% block body %}{% endblock %}
+            </div>
         </div>
     </body>
 </html>
