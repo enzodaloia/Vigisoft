@@ -22,6 +22,16 @@
     color: black;
 }
 
+.btn-secondary-color {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary-color:hover {
+    background-color: var(--third-color);
+    color: black;
+}
+
 .sidebar .btn {
     padding: 10px 20px;
     border: none;

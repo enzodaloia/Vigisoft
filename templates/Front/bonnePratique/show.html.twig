@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ bonnePratique.titre }} - Vigisoft{% endblock %}
+
+{% block body %}
+    <div class="rounded-3 p-4 bg-primary-color" style="min-height: 95vh;">
+        <div class="container">
+            <!-- Bannière avec l'image -->
+            <div class="banner">
+                <img src="{{ asset('ressources/imgContribution/' ~ bonnePratique.token ~ '.' ~ bonnePratique.file) }}" alt="Image de la bonne pratique" class="img-fluid rounded-3 w-100" style="max-height: 300px; object-fit: cover;">
+            </div>
+
+            <!-- Bouton retour -->
+            <div class="d-flex mt-3 mb-3">
+                <a href="{{ path('app_front_bonne_pratique') }}" class="btn btn-secondary">
+                    <i class="fa fa-arrow-left"></i> Retour
+                </a>
+            </div>
+
+            <!-- Article -->
+            <div class="article bg-white p-4 rounded-3 shadow">
+                <h1 class="text-center mb-4">{{ bonnePratique.titre }}</h1>
+                <p class="text-justify">{{ bonnePratique.corpshtml }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

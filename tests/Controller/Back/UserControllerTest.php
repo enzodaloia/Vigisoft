@@ -13,7 +13,7 @@ final class UserControllerTest extends WebTestCase{
     private KernelBrowser $client;
     private EntityManagerInterface $manager;
     private EntityRepository $userRepository;
-    private string $path = '/back/user/';
+    private string $path = '/admin/back/user/';
 
     protected function setUp(): void
     {
@@ -35,14 +35,10 @@ final class UserControllerTest extends WebTestCase{
 
         self::assertResponseStatusCodeSame(200);
         self::assertPageTitleContains('User index');
-
-        // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
     }
 
     public function testNew(): void
     {
-        $this->markTestIncomplete();
         $this->client->request('GET', sprintf('%snew', $this->path));
 
         self::assertResponseStatusCodeSame(200);
@@ -60,7 +56,6 @@ final class UserControllerTest extends WebTestCase{
 
     public function testShow(): void
     {
-        $this->markTestIncomplete();
         $fixture = new User();
         $fixture->setEmail('My Title');
         $fixture->setRoles('My Title');
@@ -74,12 +69,10 @@ final class UserControllerTest extends WebTestCase{
         self::assertResponseStatusCodeSame(200);
         self::assertPageTitleContains('User');
 
-        // Use assertions to check that the properties are properly displayed.
     }
 
     public function testEdit(): void
     {
-        $this->markTestIncomplete();
         $fixture = new User();
         $fixture->setEmail('Value');
         $fixture->setRoles('Value');
@@ -107,7 +100,6 @@ final class UserControllerTest extends WebTestCase{
 
     public function testRemove(): void
     {
-        $this->markTestIncomplete();
         $fixture = new User();
         $fixture->setEmail('Value');
         $fixture->setRoles('Value');

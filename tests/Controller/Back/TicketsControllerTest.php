@@ -13,7 +13,7 @@ final class TicketsControllerTest extends WebTestCase{
     private KernelBrowser $client;
     private EntityManagerInterface $manager;
     private EntityRepository $ticketRepository;
-    private string $path = '/back/tickets/';
+    private string $path = '/admin/back/tickets/';
 
     protected function setUp(): void
     {
@@ -42,7 +42,6 @@ final class TicketsControllerTest extends WebTestCase{
 
     public function testNew(): void
     {
-        $this->markTestIncomplete();
         $this->client->request('GET', sprintf('%snew', $this->path));
 
         self::assertResponseStatusCodeSame(200);
@@ -65,7 +64,6 @@ final class TicketsControllerTest extends WebTestCase{
 
     public function testShow(): void
     {
-        $this->markTestIncomplete();
         $fixture = new Tickets();
         $fixture->setToken('My Title');
         $fixture->setTitre('My Title');
@@ -89,7 +87,6 @@ final class TicketsControllerTest extends WebTestCase{
 
     public function testEdit(): void
     {
-        $this->markTestIncomplete();
         $fixture = new Tickets();
         $fixture->setToken('Value');
         $fixture->setTitre('Value');
@@ -132,7 +129,6 @@ final class TicketsControllerTest extends WebTestCase{
 
     public function testRemove(): void
     {
-        $this->markTestIncomplete();
         $fixture = new Tickets();
         $fixture->setToken('Value');
         $fixture->setTitre('Value');

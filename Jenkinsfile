@@ -9,7 +9,12 @@ pipeline {
     stages {
         stage('Deploy code with Ansible') {
             steps {
-                sh 'ansible-playbook -i ansible/inventory.ini ansible/deploy-vigisoft.yml'
+                script {
+                    writeFile file: '/tmp/id_rsa', text: SSH_KEY
+                    sh 'chmod 600 /tmp/id_rsa'
+
+                    sh 'ansible-playbook -i ansible/inventory.ini ansible/deploy-vigisoft.yml --private-key /tmp/id_rsa'
+                }
             }
         }
 
@@ -36,7 +41,10 @@ pipeline {
 
         stage('Configure Apache with Ansible') {
             steps {
-                sh 'ansible-playbook -i ansible/inventory.ini ansible/configure_apache.yml'
+                script {
+                    // Reutiliser le fichier de clé temporaire
+                    sh 'ansible-playbook -i ansible/inventory.ini ansible/configure_apache.yml --private-key /tmp/id_rsa'
+                }
             }
         }
     }

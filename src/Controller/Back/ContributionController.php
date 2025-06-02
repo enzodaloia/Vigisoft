@@ -30,8 +30,10 @@ final class ContributionController extends AbstractController{
 
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('file')->getData();
+            $ext = null;
             if ($file) {
-                $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/resources/imgContribution';
+                $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/ressources/imgContribution';
+                $ext = $file->guessExtension();
                 $newFilename = $contribution->getToken() . '.' . $file->guessExtension();
 
                 try {
@@ -40,6 +42,7 @@ final class ContributionController extends AbstractController{
                     $this->addFlash('error', 'An error occurred while uploading the file.');
                 }
             }
+            $contribution->setFile($ext);
             $contribution->setCreatedBy($this->getUser());
             $entityManager->persist($contribution);
             $entityManager->flush();
@@ -69,8 +72,10 @@ final class ContributionController extends AbstractController{
 
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('file')->getData();
+            $ext = null;
             if ($file) {
-                $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/resources/imgContribution';
+                $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/ressources/imgContribution';
+                $ext = $file->guessExtension();
                 $newFilename = $contribution->getToken() . '.' . $file->guessExtension();
 
                 try {
@@ -79,6 +84,8 @@ final class ContributionController extends AbstractController{
                     $this->addFlash('error', 'An error occurred while uploading the file.');
                 }
             }
+            $contribution->setFile($ext);
+            $entityManager->persist($contribution);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_back_contribution_index', [], Response::HTTP_SEE_OTHER);

@@ -3,6 +3,7 @@
 namespace App\Controller\Back;
 
 use App\Entity\Back\Tickets;
+use App\Entity\Back\Statut;
 use App\Form\Back\TicketsType;
 use App\Repository\Back\SeveriteRepository;
 use App\Repository\Back\StatutRepository;
@@ -15,6 +16,21 @@ use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/admin/back/tickets')]
 final class TicketsController extends AbstractController{
+    
+    #[Route('/{id}/change-statut/{statutId}', name: 'app_back_tickets_change_statut', methods: ['GET'])]
+    public function changeStatut(Tickets $ticket, int $statutId, EntityManagerInterface $entityManager): Response {
+        $statut = $entityManager->getRepository(Statut::class)->find($statutId);
+
+        $ticket->setStatut($statut);
+        $ticket->setUpdatedAt(new \DateTimeImmutable());
+
+        $entityManager->persist($ticket);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_back_tickets_show', ['id' => $ticket->getId()]);
+    }
+
+    
     #[Route(name: 'app_back_tickets_index', methods: ['GET'])]
     public function index(TicketsRepository $ticketsRepository, StatutRepository $statutRepository, SeveriteRepository $severiteRepository): Response
     {
@@ -33,6 +49,7 @@ final class TicketsController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ticket->setCreatedBy($this->getUser());
             $entityManager->persist($ticket);
             $entityManager->flush();
 
@@ -46,10 +63,12 @@ final class TicketsController extends AbstractController{
     }
 
     #[Route('/{id}', name: 'app_back_tickets_show', methods: ['GET'])]
-    public function show(Tickets $ticket): Response
+    public function show(Tickets $ticket, EntityManagerInterface $entityManager, ): Response
     {
+        $statut = $entityManager->getRepository(Statut::class)->findAll();
         return $this->render('Back/tickets/show.html.twig', [
             'ticket' => $ticket,
+            'statut' => $statut,
         ]);
     }
 
@@ -60,6 +79,8 @@ final class TicketsController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ticket->setUpdatedAt(new \DateTimeImmutable());
+            $entityManager->persist($ticket);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_back_tickets_index', [], Response::HTTP_SEE_OTHER);

@@ -13,7 +13,7 @@ final class SeveriteControllerTest extends WebTestCase{
     private KernelBrowser $client;
     private EntityManagerInterface $manager;
     private EntityRepository $severiteRepository;
-    private string $path = '/back/severite/';
+    private string $path = '/admin/back/severite/';
 
     protected function setUp(): void
     {
@@ -42,7 +42,6 @@ final class SeveriteControllerTest extends WebTestCase{
 
     public function testNew(): void
     {
-        $this->markTestIncomplete();
         $this->client->request('GET', sprintf('%snew', $this->path));
 
         self::assertResponseStatusCodeSame(200);
@@ -59,7 +58,6 @@ final class SeveriteControllerTest extends WebTestCase{
 
     public function testShow(): void
     {
-        $this->markTestIncomplete();
         $fixture = new Severite();
         $fixture->setTitre('My Title');
         $fixture->setCreatedAt('My Title');
@@ -77,7 +75,6 @@ final class SeveriteControllerTest extends WebTestCase{
 
     public function testEdit(): void
     {
-        $this->markTestIncomplete();
         $fixture = new Severite();
         $fixture->setTitre('Value');
         $fixture->setCreatedAt('Value');
@@ -102,7 +99,6 @@ final class SeveriteControllerTest extends WebTestCase{
 
     public function testRemove(): void
     {
-        $this->markTestIncomplete();
         $fixture = new Severite();
         $fixture->setTitre('Value');
         $fixture->setCreatedAt('Value');

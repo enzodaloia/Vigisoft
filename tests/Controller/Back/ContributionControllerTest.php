@@ -13,7 +13,7 @@ final class ContributionControllerTest extends WebTestCase{
     private KernelBrowser $client;
     private EntityManagerInterface $manager;
     private EntityRepository $contributionRepository;
-    private string $path = '/back/contribution/';
+    private string $path = '/admin/back/contribution/';
 
     protected function setUp(): void
     {
@@ -36,13 +36,10 @@ final class ContributionControllerTest extends WebTestCase{
         self::assertResponseStatusCodeSame(200);
         self::assertPageTitleContains('Contribution index');
 
-        // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
     }
 
     public function testNew(): void
     {
-        $this->markTestIncomplete();
         $this->client->request('GET', sprintf('%snew', $this->path));
 
         self::assertResponseStatusCodeSame(200);
@@ -63,7 +60,6 @@ final class ContributionControllerTest extends WebTestCase{
 
     public function testShow(): void
     {
-        $this->markTestIncomplete();
         $fixture = new Contribution();
         $fixture->setToken('My Title');
         $fixture->setTitre('My Title');
@@ -79,13 +75,10 @@ final class ContributionControllerTest extends WebTestCase{
 
         self::assertResponseStatusCodeSame(200);
         self::assertPageTitleContains('Contribution');
-
-        // Use assertions to check that the properties are properly displayed.
     }
 
     public function testEdit(): void
     {
-        $this->markTestIncomplete();
         $fixture = new Contribution();
         $fixture->setToken('Value');
         $fixture->setTitre('Value');
@@ -122,7 +115,6 @@ final class ContributionControllerTest extends WebTestCase{
 
     public function testRemove(): void
     {
-        $this->markTestIncomplete();
         $fixture = new Contribution();
         $fixture->setToken('Value');
         $fixture->setTitre('Value');

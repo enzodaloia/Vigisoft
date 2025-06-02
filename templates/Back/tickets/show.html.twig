@@ -1,42 +1,89 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tickets{% endblock %}
+{% block title %}Détail du ticket #{{ ticket.id }}{% endblock %}
 
 {% block body %}
-    <h1>Tickets</h1>
+    <div class="container mt-4">
+        <h1 class="text-center text-primary">Détail du ticket</h1>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <a href="{{ path('app_back_tickets_index') }}" class="btn btn-secondary me-2">
+                    <i class="fa fa-arrow-left"></i>
+                </a>
+                <div class="dropdown d-inline">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ticket.statut.titre}}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {% for s in statut %}
+                            <li>
+                                <a class="dropdown-item" href="{{ path('app_back_tickets_change_statut', {'id': ticket.id, 'statutId': s.id}) }}">
+                                    {{ s.titre }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="d-flex">
+                {% if ticket.statut.titre != 'Clôturé' %}
+                    <a href="{{ path('app_back_tickets_edit', {'id': ticket.id}) }}" class="btn btn-warning me-2 text-white">
+                        Modifier
+                    </a>
+                {% endif %}
+                
+                {% if is_granted('ROLE_ADMIN') %}
+                    {{ include('Back/tickets/_delete_form.html.twig') }}
+                {% endif %}
+            </div>
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ ticket.id }}</td>
-            </tr>
-            <tr>
-                <th>Token</th>
-                <td>{{ ticket.token }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ ticket.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ ticket.description }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ ticket.createdAt ? ticket.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ ticket.updatedAt ? ticket.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_back_tickets_index') }}">back to list</a>
-
-    <a href="{{ path('app_back_tickets_edit', {'id': ticket.id}) }}">edit</a>
-
-    {{ include('Back/tickets/_delete_form.html.twig') }}
+        <div class="card shadow">
+            <div class="card-header bg-primary-color text-white fw-bold">
+                Informations générales
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Statut :</strong>
+                        <span class="badge 
+                            {% if ticket.statut.titre == 'Nouveau' %}bg-primary
+                            {% elseif ticket.statut.titre == 'En cours...' %}bg-warning
+                            {% elseif ticket.statut.titre == 'Clôturé' %}bg-success
+                            {% else %}bg-secondary{% endif %}">
+                            {{ ticket.statut.titre }}
+                        </span>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Sévérité :</strong>
+                        <span class="badge 
+                            {% if ticket.severite.titre == 'Mineur' %}bg-info
+                            {% elseif ticket.severite.titre == 'Majeur' %}bg-warning
+                            {% elseif ticket.severite.titre == 'Critique' %}bg-danger
+                            {% else %}bg-secondary{% endif %}">
+                            {{ ticket.severite.titre }}
+                        </span>
+                    </div>
+                </div>
+                <div class="row mt-3 mb-3">
+                    <div class="col-md-6">
+                        <strong>Créé le :</strong> {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y H:i') : 'N/A' }}
+                    </div>
+                    {% if ticket.updatedAt %}
+                        <div class="col-md-6">
+                            <strong>Mis à jour le :</strong> {{ ticket.updatedAt|date('d/m/Y H:i') }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="mt-3 mb-3">
+                    <strong>Titre :</strong>
+                    <div class="border p-2 rounded bg-light">{{ ticket.titre }}</div>
+                </div>
+                <div class="mb-3">
+                    <strong>Description :</strong>
+                    <div class="border p-3 rounded bg-light">{{ ticket.description }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

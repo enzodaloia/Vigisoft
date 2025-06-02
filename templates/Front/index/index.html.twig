@@ -6,11 +6,41 @@
     <div class="rounded-3 p-4 bg-primary-color" style="min-height: 95vh; overflow-y: auto;">
         <div class="container">
             <div class="row text-center gx-4 gy-4">
+                <div class="col-md-4">
+                    <div class="card text-white bg-primary mb-3 shadow" style="max-width: 100%;">
+                        <div class="card-header text-center fw-bold">
+                            Nombre total de tickets
+                        </div>
+                        <div class="card-body text-center">
+                            <h1 class="display-4">{{ tickets|length }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-primary mb-3 shadow" style="max-width: 100%;">
+                        <div class="card-header text-center fw-bold">
+                            Nombre total de tickets en cours ...
+                        </div>
+                        <div class="card-body text-center">
+                            <h1 class="display-4">{{ ticketsEnCours }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-primary mb-3 shadow" style="max-width: 100%;">
+                        <div class="card-header text-center fw-bold">
+                            Nombre total de tickets clos
+                        </div>
+                        <div class="card-body text-center">
+                            <h1 class="display-4">{{ tickets|length }}</h1>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="col-md-4">
                     <div class="card h-100 shadow" style="background-color: #E5DCC5;">
                         <div class="card-header" style="background-color: #848FA5; color: black;">
-                            Graphique circulaire
+                            Statut des tickets
                         </div>
                         <div class="card-body">
                             <div id="chart"></div>
@@ -21,7 +51,7 @@
                 <div class="col-md-4">
                     <div class="card h-100 shadow" style="background-color: #E5DCC5;">
                         <div class="card-header" style="background-color: #848FA5; color: black;">
-                            Graphique linéaire
+                            Nombre de tickets résolu par mois
                         </div>
                         <div class="card-body">
                             <div id="line" class="w-100"></div>
@@ -32,7 +62,7 @@
                 <div class="col-md-4">
                     <div class="card h-100 shadow" style="background-color: #E5DCC5;">
                         <div class="card-header" style="background-color: #848FA5; color: black;">
-                            Deuxième camembert
+                            Sévérité des tickets
                         </div>
                         <div class="card-body">
                             <div id="pie"></div>
@@ -43,7 +73,7 @@
                 <div class="col-md-6">
                     <div class="card h-100 shadow" style="background-color: #E5DCC5;">
                         <div class="card-header" style="background-color: #848FA5; color: black;">
-                            Histogramme par mois
+                            Nombre de tickets par mois par mois
                         </div>
                         <div class="card-body">
                             <div id="column" class="w-100"></div>
@@ -73,12 +103,12 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
         var options = {
-            series: [44, 55, 13, 43, 22],
+            series: {{ statusPercentages|json_encode|raw }},
             chart: {
                 width: 380,
                 type: 'pie',
             },
-            labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+            labels: {{ statusTitre|json_encode|raw }},
             legend: {
                 labels: {
                     colors: '#000000'
@@ -103,7 +133,7 @@
         var options = {
           series: [{
               name: "Desktops",
-              data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+              data: {{ resolvedTicketsByMonth|json_encode|raw }}
           }],
           chart: {
               height: 350,
@@ -160,12 +190,12 @@
         chart.render();
 
         var options = {
-          series: [44, 55, 13, 43, 22],
+          series: {{ severitePercentages|json_encode|raw }},
           chart: {
               width: 380,
               type: 'pie',
           },
-          labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+          labels: {{ severiteTitres|json_encode|raw }},
           legend: {
               labels: {
                   colors: '#000000'
@@ -191,7 +221,7 @@
 
       var options = {
           series: [{
-              data: [21, 22, 10, 28, 16, 21, 13, 30, 25, 18, 20, 15]
+              data: {{ monthlyTicketCount|json_encode|raw }}
           }],
           chart: {
               height: 350,
@@ -223,7 +253,7 @@
           },
           xaxis: {
               categories: [
-                  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' // Mois de l'année
+                  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
               ],
               labels: {
                   style: {
@@ -254,7 +284,7 @@
       var options = {
         series: [{
             name: 'Series 1',
-            data: [20, 100, 40, 30, 50, 80, 33],
+            data: {{ weeklyTicketCount|json_encode|raw }},
         }],
         chart: {
             height: 350,

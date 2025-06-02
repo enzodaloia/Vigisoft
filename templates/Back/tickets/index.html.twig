@@ -14,7 +14,7 @@
             <a href="{{ path('app_back_statut_index') }}" class="btn btn-primary-color me-2">Statut</a>
             <a href="{{ path('app_back_severite_index') }}" class="btn btn-primary-color me-2">Sévérité</a>
         </div>
-        <div class="ms-auto d-flex">
+        {# <div class="ms-auto d-flex">
             <div class="dropdown me-2">
                 <button class="btn btn-white text-black border border-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     Statut
@@ -37,7 +37,7 @@
                     {% endfor %}
                 </ul>
             </div>
-        </div>
+        </div> #}
     </div>
     <div class="rounded-3 p-4 bg-primary-color d-flex flex-column" style="height: 90vh;">
         <div class="rounded-top bg-secondary-color text-white d-flex justify-content-center">
@@ -70,7 +70,7 @@
                                     <span class="badge 
                                         {% if ticket.statut.titre == 'Nouveau' %}
                                             bg-primary
-                                        {% elseif ticket.statut.titre == 'En cours' %}
+                                        {% elseif ticket.statut.titre == 'En cours...' %}
                                             bg-warning
                                         {% elseif ticket.statut.titre == 'Clôturé' %}
                                             bg-success
