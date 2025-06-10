@@ -5,7 +5,6 @@
 /node_modules
 
 # Ignorer les fichiers de configuration d'environnement locaux
-.env
 .env.local
 .env.*.local
 
