@@ -19,7 +19,7 @@ services:
     container_name: symfony_app
     restart: always
     ports:
-      - "8081:80"
+      - "80:80"
     environment:
       APP_ENV: dev
       APP_SECRET: e3806a7eaf99e088b7ec0620143e5a1c
