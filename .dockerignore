@@ -1,0 +1,41 @@
+# .dockerignore
+
+# Ignorer les dossiers de dépendances
+/vendor
+/node_modules
+
+# Ignorer les fichiers de configuration d'environnement locaux
+.env
+.env.local
+.env.*.local
+
+# Ignorer les fichiers de logs et caches
+var/log
+var/cache
+var/sessions
+
+# Ignorer les fichiers de build front
+/build
+/dist
+
+# Ignorer les fichiers système et IDE
+.git
+.gitignore
+.gitattributes
+.idea
+.vscode
+.DS_Store
+Thumbs.db
+
+# Ignorer les fichiers Docker inutiles dans le conteneur
+docker-compose.yml
+docker-compose.override.yml
+docker-compose.prod.yaml
+Dockerfile
+.dockerignore
+
+# Ignorer les fichiers temporaires
+*.swp
+*.tmp
+*.bak
+*.old

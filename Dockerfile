@@ -27,6 +27,8 @@ WORKDIR /var/www/html
 # Copie les fichiers du projet dans le conteneur
 COPY . .
 
+RUN git config --global --add safe.directory /var/www/html
+
 # Installe les dépendances PHP avec Composer en mode production
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
