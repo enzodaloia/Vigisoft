@@ -11,11 +11,25 @@
       failed_when: false
       changed_when: false
 
+    - name: Affiche la version de Docker détectée
+      debug:
+        var: docker_version
+
     - name: Installer Docker si non installé
       apt:
         name: docker.io
         state: present
       when: docker_version.rc != 0
+
+    - name: Vérifie que docker-compose est installé
+      command: docker-compose --version
+      register: compose_version
+      failed_when: false
+      changed_when: false
+
+    - name: Affiche la version de docker-compose détectée
+      debug:
+        var: compose_version
 
     - name: Cloner le dépôt Symfony
       git:
@@ -24,6 +38,16 @@
         version: main
         force: yes
         update: yes
+
+    - name: Debug - liste les fichiers du dossier projet
+      command: ls -l
+      args:
+        chdir: "{{ symfony_project_dir }}"
+
+    - name: Debug - affiche le contenu du docker-compose.prod.yaml
+      command: cat docker-compose.prod.yaml
+      args:
+        chdir: "{{ symfony_project_dir }}"
 
     - name: Lancer le build et démarrer les conteneurs
       command: docker-compose -f docker-compose.prod.yaml up -d --build
