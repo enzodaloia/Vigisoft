@@ -21,7 +21,7 @@ services:
     ports:
       - "8081:80"
     environment:
-      APP_ENV: prod
+      APP_ENV: dev
       APP_SECRET: e3806a7eaf99e088b7ec0620143e5a1c
       DATABASE_URL: mysql://vigisoft:ZjN4xfKjSkZmBHF@www.enzo.lowhost.fr:3306/vigisoft?serverVersion=10.11.2-MariaDB&charset=utf8mb4
     depends_on:
