@@ -28,12 +28,14 @@ WORKDIR /var/www/html/Vigisoft
 # Copie les fichiers du projet dans le conteneur
 COPY . .
 
+# Configure git pour éviter les warnings dans les scripts Symfony
 RUN git config --global --add safe.directory /var/www/html/Vigisoft
 
-RUN composer dump-env prod
-
 # Installe les dépendances PHP avec Composer en mode production
-RUN ls -al && composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Génère le cache d'environnement pour la prod (nécessite symfony/flex)
+RUN composer dump-env prod
 
 # Donne les droits nécessaires (optionnel, adapte selon ton user)
 RUN chown -R www-data:www-data /var/www/html/Vigisoft/var
