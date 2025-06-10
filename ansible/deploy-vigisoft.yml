@@ -26,6 +26,6 @@
         update: yes
 
     - name: Lancer le build et démarrer les conteneurs
-      command: docker compose -f docker-compose.prod.yaml up -d --build
+      command: docker-compose -f docker-compose.prod.yaml up -d --build
       args:
         chdir: "{{ symfony_project_dir }}"
