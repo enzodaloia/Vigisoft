@@ -32,7 +32,7 @@ COPY . .
 RUN git config --global --add safe.directory /var/www/html/Vigisoft
 
 # Déclare les variables d'environnement nécessaires au build
-ARG APP_ENV=prod
+ARG APP_ENV=dev
 ARG APP_SECRET
 ARG DATABASE_URL
 ARG MESSENGER_TRANSPORT_DSN
@@ -54,11 +54,11 @@ ENV MYSQL_DATABASE=${MYSQL_DATABASE}
 ENV MYSQL_HOST=${MYSQL_HOST}
 ENV MYSQL_PORT=${MYSQL_PORT}
 
-# Installe les dépendances PHP avec Composer en mode production
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+# Installe les dépendances PHP avec Composer en mode dev
+RUN composer install --optimize-autoloader --no-interaction --no-scripts
 
-# Génère le cache d'environnement pour la prod (nécessite symfony/flex)
-RUN composer dump-env prod
+# Génère le cache d'environnement pour la dev (nécessite symfony/flex)
+RUN composer dump-env dev
 
 # Donne les droits nécessaires
 RUN chown -R www-data:www-data /var/www/html/Vigisoft/var
