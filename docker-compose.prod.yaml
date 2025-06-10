@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  database:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: vigisoft
+      MYSQL_USER: vigisoft
+      MYSQL_PASSWORD: vigisoft_password
+    volumes:
+      - database_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  app:
+    build: .
+    container_name: symfony_app
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      APP_ENV: prod
+      DATABASE_URL: mysql://vigisoft:ZjN4xfKjSkZmBHF@www.enzo.lowhost.fr:3306/vigisoft?serverVersion=10.11.2-MariaDB&charset=utf8mb4
+    depends_on:
+      - database
+    volumes:
+      - ./apache.conf:/etc/apache2/sites-enabled/000-default.conf
+
+volumes:
+  database_data:
