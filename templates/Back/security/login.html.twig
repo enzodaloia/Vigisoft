@@ -6,7 +6,8 @@
 <div class="loginBox">
     <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
     <h3>Connectez-vous ici</h3>
-    <p>TEST TWIG: {{ 1 + 1 }}</p>
+    <p>APP_ENV: {{ app.environment }}</p>
+    <p>CSRF test: {{ csrf_token('authenticate') }}</p>
     <form method="post">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
