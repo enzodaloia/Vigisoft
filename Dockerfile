@@ -31,6 +31,9 @@ COPY . .
 # Configure git pour éviter les warnings dans les scripts Symfony
 RUN git config --global --add safe.directory /var/www/html/Vigisoft
 
+# Définit l'environnement à prod pour le build
+ENV APP_ENV=prod
+
 # Installe les dépendances PHP avec Composer en mode production
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
