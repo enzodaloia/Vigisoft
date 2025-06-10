@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libssl-dev \
     libcurl4-openssl-dev \
-    && docker-php-ext-install intl pdo_mysql zip opcache
+    && docker-php-ext-install intl pdo_mysql zip opcache \
+    && rm -rf /var/lib/apt/lists/*
 
 # Active mod_rewrite d'Apache (indispensable Symfony)
 RUN a2enmod rewrite
@@ -27,13 +28,13 @@ WORKDIR /var/www/html/Vigisoft
 # Copie les fichiers du projet dans le conteneur
 COPY . .
 
-RUN git config --global --add safe.directory /var/www/html
+RUN git config --global --add safe.directory /var/www/html/Vigisoft
 
 # Installe les dépendances PHP avec Composer en mode production
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Donne les droits nécessaires (optionnel, adapte selon ton user)
-RUN chown -R www-data:www-data /var/www/html/var
+RUN chown -R www-data:www-data /var/www/html/Vigisoft/var
 
 # Expose le port 80
 EXPOSE 80
