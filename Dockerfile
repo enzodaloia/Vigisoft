@@ -31,7 +31,7 @@ COPY . .
 RUN git config --global --add safe.directory /var/www/html/Vigisoft
 
 # Installe les dépendances PHP avec Composer en mode production
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN ls -al && composer install --no-dev --optimize-autoloader --no-interaction
 
 # Donne les droits nécessaires (optionnel, adapte selon ton user)
 RUN chown -R www-data:www-data /var/www/html/Vigisoft/var
