@@ -55,7 +55,7 @@ ENV MYSQL_HOST=${MYSQL_HOST}
 ENV MYSQL_PORT=${MYSQL_PORT}
 
 # Installe les dépendances PHP avec Composer en mode production
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
 # Génère le cache d'environnement pour la prod (nécessite symfony/flex)
 RUN composer dump-env prod
