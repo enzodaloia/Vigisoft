@@ -6,6 +6,7 @@
 
 # Ignorer les fichiers de configuration d'environnement locaux
 .env.local
+.env.local.php
 .env.*.local
 
 # Ignorer les fichiers de logs et caches
