@@ -24,7 +24,7 @@ services:
       - .:/var/www/html
       - ./apache.conf:/etc/apache2/sites-enabled/000-default.conf
     environment:
-      - SYMFONY_ENV=dev
+      - APP_ENV=prod
     depends_on:
       - database
     networks:
