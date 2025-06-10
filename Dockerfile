@@ -22,7 +22,7 @@ RUN a2enmod rewrite
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Définit le répertoire de travail dans le conteneur
-WORKDIR /var/www/html
+WORKDIR /var/www/html/Vigisoft
 
 # Copie les fichiers du projet dans le conteneur
 COPY . .
