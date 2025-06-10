@@ -5,7 +5,7 @@
 {% block body %}
 <div class="loginBox">
     <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
-    <h3>Connectez-vous ici</h3>
+    <h3>Connectez-vous ici [DEBUG]</h3>
     <form method="post">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
