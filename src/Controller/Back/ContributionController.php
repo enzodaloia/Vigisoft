@@ -32,7 +32,7 @@ final class ContributionController extends AbstractController{
             $file = $form->get('file')->getData();
             $ext = null;
             if ($file) {
-                $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/ressources/imgContribution';
+                $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/ressources/imgContribution';
                 $ext = $file->guessExtension();
                 $newFilename = $contribution->getToken() . '.' . $file->guessExtension();
 
@@ -74,7 +74,7 @@ final class ContributionController extends AbstractController{
             $file = $form->get('file')->getData();
             $ext = null;
             if ($file) {
-                $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/ressources/imgContribution';
+                $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/ressources/imgContribution';
                 $ext = $file->guessExtension();
                 $newFilename = $contribution->getToken() . '.' . $file->guessExtension();
 
