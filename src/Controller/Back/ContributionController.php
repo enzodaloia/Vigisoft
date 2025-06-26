@@ -32,14 +32,15 @@ final class ContributionController extends AbstractController{
             $file = $form->get('file')->getData();
             $ext = null;
             if ($file) {
-                $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/ressources/imgContribution';
                 $ext = $file->guessExtension();
-                $newFilename = $contribution->getToken() . '.' . $file->guessExtension();
-
+                $newFilename = $contribution->getToken() . '.' . $ext;
+                $pathUpload = "../public/ressources/imgContribution";
                 try {
-                    $file->move($uploadsDirectory, $newFilename);
-                } catch (\Exception $e) {
-                    $this->addFlash('error', 'An error occurred while uploading the file.');
+                    $file->move(
+                        $pathUpload,
+                        $newFilename
+                    );
+                } catch (FileException $e) {
                 }
             }
             $contribution->setFile($ext);
@@ -74,14 +75,15 @@ final class ContributionController extends AbstractController{
             $file = $form->get('file')->getData();
             $ext = null;
             if ($file) {
-                $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/ressources/imgContribution';
                 $ext = $file->guessExtension();
-                $newFilename = $contribution->getToken() . '.' . $file->guessExtension();
-
+                $newFilename = $contribution->getToken() . '.' . $ext;
+                $pathUpload = "../public/ressources/imgContribution";
                 try {
-                    $file->move($uploadsDirectory, $newFilename);
-                } catch (\Exception $e) {
-                    $this->addFlash('error', 'An error occurred while uploading the file.');
+                    $file->move(
+                        $pathUpload,
+                        $newFilename
+                    );
+                } catch (FileException $e) {
                 }
             }
             $contribution->setFile($ext);
