@@ -34,13 +34,15 @@ final class ContributionController extends AbstractController{
             if ($file) {
                 $ext = $file->guessExtension();
                 $newFilename = $contribution->getToken() . '.' . $ext;
-                $pathUpload = "../public/ressources/imgContribution";
+                $pathUpload = $this->getParameter('kernel.project_dir') . '/public/ressources/imgContribution';
+
                 try {
                     $file->move(
                         $pathUpload,
                         $newFilename
                     );
                 } catch (FileException $e) {
+                    error_log('Erreur upload : ' . $e->getMessage());
                 }
             }
             $contribution->setFile($ext);
@@ -77,13 +79,14 @@ final class ContributionController extends AbstractController{
             if ($file) {
                 $ext = $file->guessExtension();
                 $newFilename = $contribution->getToken() . '.' . $ext;
-                $pathUpload = "../public/ressources/imgContribution";
+                $pathUpload = $this->getParameter('kernel.project_dir') . '/public/ressources/imgContribution';
                 try {
                     $file->move(
                         $pathUpload,
                         $newFilename
                     );
                 } catch (FileException $e) {
+                    error_log('Erreur upload : ' . $e->getMessage());
                 }
             }
             $contribution->setFile($ext);
