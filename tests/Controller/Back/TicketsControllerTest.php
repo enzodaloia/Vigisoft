@@ -36,26 +36,24 @@ final class TicketsControllerTest extends WebTestCase{
         self::assertResponseStatusCodeSame(200);
         self::assertPageTitleContains('Ticket index');
 
-        // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
     }
 
     public function testNew(): void
     {
         $this->client->request('GET', sprintf('%snew', $this->path));
 
-        self::assertResponseStatusCodeSame(200);
-
         $this->client->submitForm('Save', [
             'ticket[token]' => 'Testing',
             'ticket[titre]' => 'Testing',
             'ticket[description]' => 'Testing',
-            'ticket[createdAt]' => 'Testing',
-            'ticket[updatedAt]' => 'Testing',
-            'ticket[createdBy]' => 'Testing',
-            'ticket[statut]' => 'Testing',
-            'ticket[severite]' => 'Testing',
+            'ticket[createdAt]' => '30-10-2023',
+            'ticket[updatedAt]' => '30-10-2023',
+            'ticket[createdBy]' => '1',
+            'ticket[statut]' => 'En cours...',
+            'ticket[severite]' => 'Mineure',
         ]);
+
+        self::assertResponseStatusCodeSame(200);
 
         self::assertResponseRedirects($this->path);
 
@@ -133,11 +131,11 @@ final class TicketsControllerTest extends WebTestCase{
         $fixture->setToken('Value');
         $fixture->setTitre('Value');
         $fixture->setDescription('Value');
-        $fixture->setCreatedAt('Value');
-        $fixture->setUpdatedAt('Value');
-        $fixture->setCreatedBy('Value');
-        $fixture->setStatut('Value');
-        $fixture->setSeverite('Value');
+        $fixture->setCreatedAt('30-10-2023');
+        $fixture->setUpdatedAt('30-10-2023');
+        $fixture->setCreatedBy(1);
+        $fixture->setStatut('En cours...');
+        $fixture->setSeverite('Mineure');
 
         $this->manager->persist($fixture);
         $this->manager->flush();

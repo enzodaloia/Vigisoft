@@ -44,9 +44,12 @@ final class UserControllerTest extends WebTestCase{
         self::assertResponseStatusCodeSame(200);
 
         $this->client->submitForm('Save', [
-            'user[email]' => 'Testing',
-            'user[roles]' => 'Testing',
+            'user[email]' => 'test@test.com',
+            'user[roles]' => 'ROLE_ADMIN',
             'user[password]' => 'Testing',
+            'user[createdAt]' => '2023-10-01',
+            'user[lastName]' => 'testLastName',
+            'user[firstName]' => 'testFirstName',
         ]);
 
         self::assertResponseRedirects($this->path);
